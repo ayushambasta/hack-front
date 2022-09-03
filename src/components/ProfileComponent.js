@@ -132,7 +132,6 @@ function ProfileComponent() {
             alignItems="center"
             sx={{ width: "100%" }}
           >
-<<<<<<< HEAD
             <InputField
               id="outlined-basic"
               label="Name"
@@ -166,15 +165,6 @@ function ProfileComponent() {
                 border: "none",
                 lineHeight: 1.5,
               }}
-=======
-            <TextField
-              style={{ width: "100%" }}
-              id="outlined-basic"
-              label="Name"
-              variant="outlined"
-              placeholder="Enter Name"
-              onChange={(e) => setName(e.target.name)}
->>>>>>> 4ab8e24a9c2b24a9aa7c20032ed3fc4911964853
             />
           </Stack>
           <Stack
@@ -184,7 +174,6 @@ function ProfileComponent() {
             sx={{ width: "100%" }}
             mt={2}
           >
-<<<<<<< HEAD
             <InputField
               id="outlined-basic"
               label="Twitter"
@@ -218,23 +207,6 @@ function ProfileComponent() {
                 border: "none",
                 lineHeight: 1.5,
               }}
-=======
-            <TextField
-              style={{ width: "50%" }}
-              id="outlined-basic"
-              label="Twitter"
-              variant="outlined"
-              placeholder="Enter Your Twitter"
-              onChange={(e) => setTwitter(e.target.name)}
-            />
-            <TextField
-              style={{ width: "50%", marginLeft: "8px" }}
-              id="outlined-basic"
-              label="Discord"
-              variant="outlined"
-              placeholder="Enter Your Discord "
-              onChange={(e) => setDiscord(e.target.name)}
->>>>>>> 4ab8e24a9c2b24a9aa7c20032ed3fc4911964853
             />
           </Stack>
           <Stack
@@ -248,11 +220,6 @@ function ProfileComponent() {
               marginTop: "12px",
             }}
           >
-<<<<<<< HEAD
-            <Box mt={2}>
-              {["dev", "front"].map((item) => (
-                <Chip label={item} variant="outlined" />
-=======
             <Box>
               {rolls?.map((item) => (
                 <Chip
@@ -269,7 +236,6 @@ function ProfileComponent() {
                   label={item}
                   variant="outlined"
                 />
->>>>>>> 4ab8e24a9c2b24a9aa7c20032ed3fc4911964853
               ))}
             </Box>
           </Stack>
