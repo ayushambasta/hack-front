@@ -1,326 +1,6 @@
 import styled from "@emotion/styled";
 import { Typography, Box, Stack, Chip, Button, TextField } from "@mui/material";
-import axios from "axios";
-import { Contract, ethers, Wallet } from "ethers";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useAccount } from "wagmi";
-
-export const tokenABI = [
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "initialSupply",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Approval",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "Transfer",
-    type: "event",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address",
-      },
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "subtractedValue",
-        type: "uint256",
-      },
-    ],
-    name: "decreaseAllowance",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "addedValue",
-        type: "uint256",
-      },
-    ],
-    name: "increaseAllowance",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "reciever",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "stake",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "from",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "to",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "sender",
-        type: "address",
-      },
-    ],
-    name: "withdrawl",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-];
+import InputField from "../helpercomponents/InputField";
 
 const MainBox = styled(Box)`
   width: 719px;
@@ -432,7 +112,7 @@ function ProfileComponent() {
           alignItems="flex-start"
           sx={{ width: "100%" }}
         >
-          <Typography fontWeight={700} fontSize={24}>
+          <Typography component="h1" fontWeight={700} fontSize={24}>
             Profile Details
           </Typography>
           <Typography component="h4" mt={2}>
@@ -452,13 +132,39 @@ function ProfileComponent() {
             alignItems="center"
             sx={{ width: "100%" }}
           >
-            <TextField
-              style={{ width: "100%" }}
+            <InputField
               id="outlined-basic"
               label="Name"
               variant="outlined"
-              placeholder="Enter Name"
-              onChange={(e) => setName(e.target.name)}
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Name"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
+            />
+            <InputField
+              id="outlined-basic"
+              label="Name"
+              variant="outlined"
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Name"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
             />
           </Stack>
           <Stack
@@ -468,21 +174,39 @@ function ProfileComponent() {
             sx={{ width: "100%" }}
             mt={2}
           >
-            <TextField
-              style={{ width: "50%" }}
+            <InputField
               id="outlined-basic"
               label="Twitter"
               variant="outlined"
-              placeholder="Enter Your Twitter"
-              onChange={(e) => setTwitter(e.target.name)}
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Twitter"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
             />
-            <TextField
-              style={{ width: "50%", marginLeft: "8px" }}
+            <InputField
               id="outlined-basic"
               label="Discord"
               variant="outlined"
-              placeholder="Enter Your Discord "
-              onChange={(e) => setDiscord(e.target.name)}
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Discord"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
             />
           </Stack>
           <Stack

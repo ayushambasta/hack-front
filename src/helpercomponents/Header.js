@@ -21,7 +21,7 @@ function Header({ walletAddress, isConnected }) {
   return (
     <MainBox>
       <LogoWrapper>
-        <Typography fontWeight={900} fontSize={24}>
+        <Typography component={"h1"} fontWeight={900} fontSize={24}>
           Linkedin
         </Typography>
       </LogoWrapper>
