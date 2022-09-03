@@ -27,5 +27,5 @@ export const HeaderBox = styled.div`
 export const MainBody = styled.div`
   width: 100vw;
   height: Calc(100vh - 80px);
-  background-color: green;
+  background-color: #0a0e23;
 `;
