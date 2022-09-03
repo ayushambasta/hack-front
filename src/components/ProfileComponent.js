@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Typography, Box, Stack, Chip, Button, TextField } from "@mui/material";
+import InputField from "../helpercomponents/InputField";
 
 const MainBox = styled(Box)`
   width: 719px;
@@ -49,8 +50,40 @@ function ProfileComponent() {
             alignItems="center"
             sx={{ width: "100%" }}
           >
-            <TextField id="outlined-basic" label="Name" variant="outlined" />
-            <TextField id="outlined-basic" label="Name" variant="outlined" />
+            <InputField
+              id="outlined-basic"
+              label="Name"
+              variant="outlined"
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Name"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
+            />
+            <InputField
+              id="outlined-basic"
+              label="Name"
+              variant="outlined"
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Name"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
+            />
           </Stack>
           <Stack
             direction="row"
@@ -59,8 +92,40 @@ function ProfileComponent() {
             sx={{ width: "100%" }}
             mt={2}
           >
-            <TextField id="outlined-basic" label="Twitter" variant="outlined" />
-            <TextField id="outlined-basic" label="Discord" variant="outlined" />
+            <InputField
+              id="outlined-basic"
+              label="Twitter"
+              variant="outlined"
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Twitter"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
+            />
+            <InputField
+              id="outlined-basic"
+              label="Discord"
+              variant="outlined"
+              sx={{ background: "#0A0E23" }}
+              type="text"
+              onChange={(e) => {}}
+              placeholder="Discord"
+              inputStyles={{
+                width: "95%",
+                alignItems: "flex-start",
+                background: "#0A0E23",
+                color: "#636B81",
+                border: "none",
+                lineHeight: 1.5,
+              }}
+            />
           </Stack>
           <Stack
             direction="row"
@@ -68,10 +133,10 @@ function ProfileComponent() {
             alignItems="center"
             sx={{ width: "100%" }}
           >
-            <Box>
-              ["dev", "front"].map(item => (
-              <Chip label={item} variant="outlined" />
-              ))
+            <Box mt={2}>
+              {["dev", "front"].map((item) => (
+                <Chip label={item} variant="outlined" />
+              ))}
             </Box>
           </Stack>
         </Stack>

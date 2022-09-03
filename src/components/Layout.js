@@ -31,9 +31,9 @@ function Layout({ children }) {
 
   useEffect(() => {
     if (isWalletConnected) {
-      router.push("/profile");
+      router.push("/profiledisplay");
     } else {
-      router.push("/profile");
+      router.push("/profiledisplay");
     }
   }, [isWalletConnected, walletAddress]);
 
