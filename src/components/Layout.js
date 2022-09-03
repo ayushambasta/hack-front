@@ -37,9 +37,7 @@ function Layout({ children }) {
       url: `http://localhost:5001/api/v1/users/address/${address}`,
       headers: {},
     };
-
     const response = await axios(config);
-
     if (isWalletConnected && response.data.data) {
       router.push("/explore");
     } else if (isWalletConnected) {
