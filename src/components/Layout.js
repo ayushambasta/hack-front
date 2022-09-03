@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   EmptyContainer,
   HeaderBox,
@@ -8,6 +9,7 @@ import { useAccount } from "wagmi";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/router";
 import Header from "../helpercomponents/Header";
+import axios from "axios";
 
 function Layout({ children }) {
   const router = useRouter();
@@ -29,11 +31,19 @@ function Layout({ children }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (isWalletConnected) {
-      router.push("/profiledisplay");
+  useEffect(async () => {
+    var config = {
+      method: "get",
+      url: `http://localhost:5001/api/v1/users/address/${address}`,
+      headers: {},
+    };
+    const response = await axios(config);
+    if (isWalletConnected && response.data.data) {
+      router.push("/explore");
+    } else if (isWalletConnected) {
+      router.push("/profile");
     } else {
-      router.push("/profiledisplay");
+      router.push("/");
     }
   }, [isWalletConnected, walletAddress]);
 

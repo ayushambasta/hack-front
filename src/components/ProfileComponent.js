@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
 import { Typography, Box, Stack, Chip, Button, TextField } from "@mui/material";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 import InputField from "../helpercomponents/InputField";
 
 const MainBox = styled(Box)`
@@ -66,7 +69,7 @@ function ProfileComponent() {
     );
 
     const GLD = new Contract(
-      "0xFE87A5f12c08E1223efEafc462E777daeE6bE699",
+      "0x27CFBfFD67484163690c99519dAF91E36337B565",
       tokenABI,
       wallet
     );
