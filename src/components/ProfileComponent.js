@@ -4,7 +4,6 @@ import InputField from "../helpercomponents/InputField";
 
 const MainBox = styled(Box)`
   width: 719px;
-  height: 453px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +22,87 @@ const WrapperBox = styled(Box)`
 `;
 
 function ProfileComponent() {
+  const [rolls, setRolls] = useState([]);
+  const [name, setName] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [discord, setDiscord] = useState("");
+  const [selectedRoles, setSelectedRoles] = useState([]);
+  const { address, isConnected } = useAccount();
+
+  const handleSelectRole = (role) => {
+    if (selectedRoles.includes(role)) {
+      const roles = [...selectedRoles];
+      roles.splice(selectedRoles.indexOf(role), 1);
+      setSelectedRoles(roles);
+    } else {
+      const roles = [...selectedRoles];
+      roles.push(role);
+      setSelectedRoles(roles);
+    }
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      // To get All Roles
+      var config = {
+        method: "get",
+        url: "http://localhost:5001/api/v1/users/rolls",
+        headers: {},
+      };
+
+      const response = await axios(config);
+      setRolls(response.data.data);
+    };
+    init();
+  }, []);
+
+  const router = useRouter();
+
+  const submitProfile = async () => {
+    const provider = new ethers.getDefaultProvider(4);
+    const wallet = new Wallet(
+      "46c071c1951a69a3bfad843d854d62131b1d414726280329e56d92fbca26cb30",
+      provider
+    );
+
+    const GLD = new Contract(
+      "0xFE87A5f12c08E1223efEafc462E777daeE6bE699",
+      tokenABI,
+      wallet
+    );
+    const response = await GLD.transfer(address, 10);
+
+    console.log(response);
+
+    var data = JSON.stringify({
+      name: name,
+      walletAddress: address,
+      networkId: 4,
+      discord: discord,
+      twitter: twitter,
+      isVerified: false,
+      Skills: selectedRoles,
+    });
+
+    var config = {
+      method: "post",
+      url: "http://localhost:5001/api/v1/users",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+        router.push("/explore");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <WrapperBox>
       <MainBox>
@@ -32,10 +112,12 @@ function ProfileComponent() {
           alignItems="flex-start"
           sx={{ width: "100%" }}
         >
-          <Typography component="h1">Profile Details</Typography>
+          <Typography fontWeight={700} fontSize={24}>
+            Profile Details
+          </Typography>
           <Typography component="h4" mt={2}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            Create your profile with us to better experience the Multiverse of
+            Networking
           </Typography>
         </Stack>
         <Stack
@@ -50,6 +132,7 @@ function ProfileComponent() {
             alignItems="center"
             sx={{ width: "100%" }}
           >
+<<<<<<< HEAD
             <InputField
               id="outlined-basic"
               label="Name"
@@ -83,6 +166,15 @@ function ProfileComponent() {
                 border: "none",
                 lineHeight: 1.5,
               }}
+=======
+            <TextField
+              style={{ width: "100%" }}
+              id="outlined-basic"
+              label="Name"
+              variant="outlined"
+              placeholder="Enter Name"
+              onChange={(e) => setName(e.target.name)}
+>>>>>>> 4ab8e24a9c2b24a9aa7c20032ed3fc4911964853
             />
           </Stack>
           <Stack
@@ -92,6 +184,7 @@ function ProfileComponent() {
             sx={{ width: "100%" }}
             mt={2}
           >
+<<<<<<< HEAD
             <InputField
               id="outlined-basic"
               label="Twitter"
@@ -125,17 +218,58 @@ function ProfileComponent() {
                 border: "none",
                 lineHeight: 1.5,
               }}
+=======
+            <TextField
+              style={{ width: "50%" }}
+              id="outlined-basic"
+              label="Twitter"
+              variant="outlined"
+              placeholder="Enter Your Twitter"
+              onChange={(e) => setTwitter(e.target.name)}
+            />
+            <TextField
+              style={{ width: "50%", marginLeft: "8px" }}
+              id="outlined-basic"
+              label="Discord"
+              variant="outlined"
+              placeholder="Enter Your Discord "
+              onChange={(e) => setDiscord(e.target.name)}
+>>>>>>> 4ab8e24a9c2b24a9aa7c20032ed3fc4911964853
             />
           </Stack>
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+              padding: "12px",
+              background: "#0A0E23",
+              marginTop: "12px",
+            }}
           >
+<<<<<<< HEAD
             <Box mt={2}>
               {["dev", "front"].map((item) => (
                 <Chip label={item} variant="outlined" />
+=======
+            <Box>
+              {rolls?.map((item) => (
+                <Chip
+                  onClick={() => handleSelectRole(item)}
+                  style={{
+                    margin: "4px",
+                    cursor: "pointer",
+                    color: selectedRoles.includes(item) ? "#BCFE2F" : "white",
+                    border: selectedRoles.includes(item)
+                      ? "1px solid #BCFE2F"
+                      : "none",
+                  }}
+                  key={item}
+                  label={item}
+                  variant="outlined"
+                />
+>>>>>>> 4ab8e24a9c2b24a9aa7c20032ed3fc4911964853
               ))}
             </Box>
           </Stack>
@@ -144,10 +278,19 @@ function ProfileComponent() {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          sx={{ width: "100%" }}
+          sx={{ width: "100%", marginTop: "20px" }}
         >
           <Button>Cancel</Button>
-          <Button variant="contained">Create Profile</Button>
+          <Button
+            style={{
+              background: "#123CF8",
+              color: "white",
+            }}
+            variant="contained"
+            onClick={submitProfile}
+          >
+            Create Profile
+          </Button>
         </Stack>
       </MainBox>
     </WrapperBox>

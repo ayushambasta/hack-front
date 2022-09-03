@@ -40,7 +40,7 @@ function Layout({ children }) {
   return (
     <EmptyContainer>
       <HeaderBox>
-        <Header walletAddress={walletAddress} />
+        <Header isConnected={isConnected} walletAddress={walletAddress} />
       </HeaderBox>
       <MainBody>{children}</MainBody>
     </EmptyContainer>

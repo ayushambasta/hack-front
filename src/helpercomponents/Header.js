@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const MainBox = styled(Box)`
   width: 100%;
@@ -9,22 +10,27 @@ const MainBox = styled(Box)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justiffy-content: space-between;
+  justify-content: space-between;
   padding: 0 15px;
+  border-bottom: 1px solid #303549;
 `;
 
 const LogoWrapper = styled(Box)``;
 
-function Header({ walletAddress }) {
+function Header({ walletAddress, isConnected }) {
   return (
     <MainBox>
       <LogoWrapper>
-        <Typography>Linkedin</Typography>
+        <Typography fontWeight={900} fontSize={24}>
+          Linkedin
+        </Typography>
       </LogoWrapper>
 
-      <LogoWrapper>
-        <Chip label={walletAddress} variant="outlined" />
-      </LogoWrapper>
+      {isConnected ? (
+        <LogoWrapper>
+          <ConnectButton></ConnectButton>
+        </LogoWrapper>
+      ) : null}
     </MainBox>
   );
 }
