@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Typography, Box, Stack, Chip, Button, TextField } from "@mui/material";
+import { Typography, Box, Stack, Chip, Button, Divider } from "@mui/material";
 
 const RenderInfo = ({ name, desc, isLink = false, href = "" }) => {
   return (
@@ -77,10 +77,17 @@ function ProfileDisplayComponent() {
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
+          mt={2}
           sx={{ width: "100%" }}
         ></Stack>
-        <Stack>
-          {" "}
+
+        <Stack
+          direction="column"
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          mt={2}
+          sx={{ width: "100%" }}
+        >
           <Stack
             direction="row"
             justifyContent="flex-start"
@@ -91,11 +98,28 @@ function ProfileDisplayComponent() {
             <span>{`${connection} Connections`}</span>
             <span>{`${followers} Followers`}</span>
           </Stack>
+          <Stack
+            direction="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            mt={2}
+            sx={{ width: "100%" }}
+          >
+            <Typography component={"h2"}>Experience</Typography>
+            <Typography component={"h6"} mt={1}>
+              Redesigned the Bankless website, which was to improve the
+              aesthetics and usability of the Web pages.
+            </Typography>
+          </Stack>
         </Stack>
+
+        <Divider />
+
         <Stack
           direction="row"
           justifyContent="flex-start"
           alignItems="flex-start"
+          mt={2}
           sx={{ width: "100%" }}
         >
           <Stack
