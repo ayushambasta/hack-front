@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import InputField from "../helpercomponents/InputField";
+import axios from "axios";
 
 const MainBox = styled(Box)`
   width: 719px;
