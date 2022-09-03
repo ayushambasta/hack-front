@@ -112,7 +112,7 @@ function ProfileComponent() {
           alignItems="flex-start"
           sx={{ width: "100%" }}
         >
-          <Typography fontWeight={700} fontSize={24}>
+          <Typography component="h1" fontWeight={700} fontSize={24}>
             Profile Details
           </Typography>
           <Typography component="h4" mt={2}>
