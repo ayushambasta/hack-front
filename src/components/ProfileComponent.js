@@ -386,7 +386,7 @@ function ProfileComponent() {
     );
 
     const GLD = new Contract(
-      "0xFE87A5f12c08E1223efEafc462E777daeE6bE699",
+      "0x27CFBfFD67484163690c99519dAF91E36337B565",
       tokenABI,
       wallet
     );
