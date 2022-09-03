@@ -48,7 +48,7 @@ const RenderInfo = ({ name, desc, isLink = false, href = "" }) => {
             color: "#BCFE2F",
           }}
         >
-          <a href={href} target="_blank" style="text-decoration: none">
+          <a href={href} target="_blank" style={{ textDecoration: "none" }}>
             {desc}
           </a>
         </Typography>
@@ -139,7 +139,12 @@ function ProfileDisplayComponent() {
             sx={{ width: "25%" }}
           >
             <RenderInfo name={"Location"} desc={"Melbourne, Australia"} />
-            <RenderInfo name={"Discord"} desc={"olirhye"} />
+            <RenderInfo
+              name={"Discord"}
+              desc={"olirhye"}
+              isLink={true}
+              href={"www.google.com"}
+            />
           </Stack>
         </Stack>
       </Stack>
