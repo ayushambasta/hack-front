@@ -79,14 +79,49 @@ function ProfileDisplayComponent() {
           alignItems="flex-start"
           mt={2}
           sx={{ width: "100%" }}
-        ></Stack>
+        >
+          <Stack
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{ width: "100%" }}
+          >
+            <img
+              src={"../../public/cover.png"}
+              width={"100%"}
+              height={"100%"}
+            />
+          </Stack>
+
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="flex-start"
+            sx={{ width: "100%" }}
+          >
+            <Stack></Stack>
+            <Stack></Stack>
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="flex-start"
+              sx={{ width: "50%" }}
+            >
+              {/* <MenuButton /> */}
+            </Stack>
+          </Stack>
+        </Stack>
 
         <Stack
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
           mt={2}
-          sx={{ width: "100%" }}
+          sx={{
+            width: "100%",
+            borderBottom: "2px solid #303549",
+            paddingBottom: "10px",
+          }}
         >
           <Stack
             direction="row"
@@ -112,8 +147,6 @@ function ProfileDisplayComponent() {
             </Typography>
           </Stack>
         </Stack>
-
-        <Divider />
 
         <Stack
           direction="row"

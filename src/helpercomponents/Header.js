@@ -3,6 +3,8 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
+import logo from "../../public/Frame.svg";
 import { useEffect, useState } from "react";
 import detectEthereumProvider from "@metamask/detect-provider";
 import { ethers } from "ethers";
@@ -44,7 +46,12 @@ function Header({ walletAddress, isConnected }) {
     <MainBox>
       <LogoWrapper>
         <Typography component={"h1"} fontWeight={900} fontSize={24}>
-          Linkedin
+          <Image
+            src={logo}
+            alt="Picture of the author"
+            width={150}
+            height={150}
+          />
         </Typography>
       </LogoWrapper>
 
