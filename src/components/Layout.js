@@ -38,13 +38,13 @@ function Layout({ children }) {
       headers: {},
     };
     const response = await axios(config);
-    if (isWalletConnected && response.data.data) {
-      router.push("/explore");
-    } else if (isWalletConnected) {
-      router.push("/profile");
-    } else {
-      router.push("/");
-    }
+    // if (isWalletConnected && response.data.data) {
+    //   router.push("/explore");
+    // } else if (isWalletConnected) {
+    //   router.push("/profile");
+    // } else {
+    //   router.push("/");
+    // }
   }, [isWalletConnected, walletAddress]);
 
   return (
